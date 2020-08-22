@@ -74,7 +74,8 @@ attroff COLOR_PAIR mode
 INPUT =: INPUT,y
 )
 
-NB. based on input, determine what ncurses position should be.
+NB. based on input, determine what ncurses position should
+NB. be. multiplying by sign of i fixes column for first row
 pos =: 3 : 0
 i =. +/ row =. LF = PROMPT {.~ n =. # INPUT
 i , n - (*i) * 1 + row i: 1
@@ -88,8 +89,7 @@ clrtoeol ''
 )
 
 status =: 3 : 0
-n=. #INPUT
-if. 0=n do. TIME0 =: 6!:1 '' end.
+if. 0=n=.#INPUT do. TIME0 =: 6!:1 '' end.
 wpm=: 60 * 1r5 * cps=: n % dt =: TIME0 -~ 6!:1 ''
 accuracy=: n %~ +/INPUT=n{.PROMPT
 putinfo 0 ; 'chars/sec:     ',": cps
@@ -119,6 +119,6 @@ hdr =. (;: 'prompt cps wpm acc time')
 hdr ,. info
 )
 
-NB. will wrap (_ :: end), but this hides errors
-jitters =: end@mid@beg
+NB. wrapping end hides errors
+jitters =: end@mid@beg :: end
 jitters_z_ =: jitters_jitters_
