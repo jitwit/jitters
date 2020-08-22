@@ -1,3 +1,4 @@
+coclass 'jitters'
 NB. a typing game?
 NB. useful resource: http://www.cs.ukzn.ac.za/~hughm/os/notes/ncurses.html#using
 load 'api/ncurses'
@@ -141,8 +142,10 @@ hdr =. (;: 'prompt cps wpm acc time')
 hdr ,. info
 )
 
-main =: 3 : 0
+jitters =: 3 : 0
 beg '' NB. will wrap (beg :: end), but this hides errors
 mid ''
 end ''
 )
+
+jitters_z_ =: jitters_jitters_
