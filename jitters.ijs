@@ -89,7 +89,7 @@ putinfo 0 ; 'chars/sec:     ',": cps
 putinfo 1 ; 'words/min:     ',": wpm
 putinfo 2 ; 'accuracy:      ',": 100 * accuracy
 putinfo 3 ; 'time elapsed:  ',": dt * 0.0001 < dt
-putinfo 4 ; 'position:      ',": y
+putinfo 4 ; 'position:      ',": pos ''
 )
 
 draw=: refresh@move@pos@status
