@@ -1,5 +1,4 @@
 coclass 'jitters'
-NB. a typing game?
 NB. useful resource: http://www.cs.ukzn.ac.za/~hughm/os/notes/ncurses.html#using
 load 'api/ncurses'
 coinsert 'ncurses'
@@ -11,11 +10,6 @@ chars=: #
 wc=: lines`words`chars `: 0
 
 NB. press enter to start? exit when match prompt
-NEED_ENDWIN =: 1
-TIME0 =: 0
-
-NB. the game states
-'READY RUN DONE EXIT'=: i. 4
 
 NB. the default prompt. will add functionality to override
 PROMPT =: 0 : 0
@@ -38,12 +32,34 @@ And for thy name, which is no part of thee,
 Take all myself.'
 )
 
+beg =: 3 : 0
+NB. 'clear' is a macro that implicitly passes '' to wclear
+NB. stdscr;''. Same for many of the other ncurses verbs.
+NB. want nodelay, will have to check for new input expliciltly
+stdscr =: initscr ''
+clear ''
+start_color ''
+init_pair 1, COLOR_WHITE, COLOR_BLACK
+init_pair 2, COLOR_WHITE, COLOR_RED
+init_pair 3, COLOR_BLUE, COLOR_BLACK
+raw''
+keypad stdscr;1{a.
+noecho''
+cbreak''
+nodelay stdscr;1{a.
+addstr PROMPT
+NEED_ENDWIN =: 1
+TIME0 =: 0
+INPUT =: ''
+y [ draw''
+)
+
 NB. keys get appended here to input. this will be compared with PROMPT
 NB. and various status information will be displayed somewhere and
 NB. colors will indicate mistakes.
 INPUT =: ''
+STATBAR =: 2 + +/ LF = PROMPT
 
-NB. to draw with flare, logical or target flare with char
 popch =: 3 : 0
 INPUT =: (_1 - LF-:{:INPUT) }. INPUT
 attron COLOR_PAIR 1
@@ -72,29 +88,28 @@ status =: 3 : 0
 n=. #INPUT
 if. 0=n do. TIME0 =: 6!:1 '' end.
 dt =: TIME0 -~ 6!:1 ''
-move 20 0
+move STATBAR,0
 addstr 'chars/sec: ',": cps=: n % dt
 clrtoeol''
-move 21 0
+move (STATBAR+1),0
 addstr 'words/min: ',": wpm=: 60 * 1r5 * cps
 clrtoeol''
-move 22 0
+move (STATBAR+2),0
 addstr 'accuracy: ', '%',~ ": 100 * accuracy=: n %~ +/INPUT=n{.PROMPT
 clrtoeol ''
-move 23 0
+move (STATBAR+3),0
 addstr 'elaspsed time: ',": dt * dt > 0.0001
 clrtoeol ''
-move 24 0
+move (STATBAR+4),0
 addstr 'position: ',": y
 clrtoeol ''
 )
 
 draw =: 3 : 0
-status xy =. pos ''
-move xy
+status ''
+move pos ''
 refresh''
 )
-
 
 NB. initscr must be called first
 NB. cbreak? to get char at time input
@@ -102,36 +117,14 @@ NB. noecho to supress typed chars echoing
 NB. keypad stdscr;1{a. to use backspace, delete, arrows
 NB. endwin call to restore terminal
 
-beg =: 3 : 0
-NB. 'clear' is a macro that implicitly passes '' to wclear
-NB. stdscr;''. Same for many of the other ncurses verbs.
-NB. want nodelay, will have to check for new input expliciltly
-stdscr =: initscr ''
-clear ''
-start_color ''
-init_pair 1, COLOR_WHITE, COLOR_BLACK
-init_pair 2, COLOR_WHITE, COLOR_RED
-init_pair 3, COLOR_BLUE, COLOR_BLACK
-raw''
-keypad stdscr;1{a.
-noecho''
-cbreak''
-nodelay stdscr;1{a.
-addstr PROMPT
-NEED_ENDWIN =: 1
-INPUT =: ''
-draw''
-)
-
 NB. key_f 1 to quit
 mid =: 3 : 0
 whilst. (INPUT <&# PROMPT) *. in ~: KEY_F 1 do.
-  if. 0 <: in =: getch ''
-  do. if. 127 -: in NB. not KEY_BACKSPACE?
-      do. popch ''
-      elseif. in < 256 do. putch in{a. end. end.
+  if. 0 <: in =: getch '' NB. 127 not KEY_BACKSPACE?
+  do. if. 127 -: in do. popch '' elseif. in < 256 do. putch in{a.
+  end. end.
   draw ''
-end.
+end. y
 )
 
 end =: 3 : 0
@@ -142,10 +135,6 @@ hdr =. (;: 'prompt cps wpm acc time')
 hdr ,. info
 )
 
-jitters =: 3 : 0
-beg '' NB. will wrap (beg :: end), but this hides errors
-mid ''
-end ''
-)
-
+NB. will wrap (_ :: end), but this hides errors
+jitters =: end@mid@beg
 jitters_z_ =: jitters_jitters_
