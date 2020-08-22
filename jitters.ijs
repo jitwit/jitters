@@ -3,6 +3,12 @@ NB. useful resource: http://www.cs.ukzn.ac.za/~hughm/os/notes/ncurses.html#using
 load 'api/ncurses'
 coinsert 'ncurses'
 
+whitespace=: 9 10 11 12 13 32
+lines=: # @: (#;._2)
+words=: [: +/ 0 1 E. 0 , whitespace e.~ a.&i.
+chars=: #
+wc=: lines`words`chars `: 0
+
 NB. press enter to start? exit when match prompt
 NEED_ENDWIN =: 1
 TIME0 =: 0
