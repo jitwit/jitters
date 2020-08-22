@@ -81,7 +81,7 @@ move 22 0
 addstr 'accuracy: ', '%',~ ": 100 * accuracy=: n %~ +/INPUT=n{.PROMPT
 clrtoeol ''
 move 23 0
-addstr 'input size: ',": n
+addstr 'elaspsed time: ',": dt * dt > 0.0001
 clrtoeol ''
 move 24 0
 addstr 'position: ',": y
@@ -136,6 +136,9 @@ end.
 end =: 3 : 0
 endwin ^: NEED_ENDWIN y
 NEED_ENDWIN =: 0
+info =. ('...' ,~ 20 {. PROMPT); cps;wpm;(100*accuracy);dt
+hdr =. (;: 'prompt cps wpm acc time')
+hdr ,. info
 )
 
 main =: 3 : 0
