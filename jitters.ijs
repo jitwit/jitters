@@ -24,8 +24,6 @@ And for thy name, which is no part of thee,
 Take all myself.'
 )
 
-whitespace=: 9 10 11 12 13 32
-
 beg =: 3 : 0
 stdscr =: initscr ''
 clear ''
@@ -75,26 +73,26 @@ i =. +/ row =. LF = PROMPT {.~ n =. # INPUT
 i , n - (*i) * 1 + row i: 1
 )
 
+putinfo =: 3 : 0
+'off msg' =. y
+move (STATBAR+off),0
+addstr msg
+clrtoeol ''
+)
+
 status =: 3 : 0
 n=. #INPUT
 if. 0=n do. TIME0 =: 6!:1 '' end.
-dt =: TIME0 -~ 6!:1 ''
-move STATBAR,0
-addstr 'chars/sec: ',": cps=: n % dt
-clrtoeol''
-move (STATBAR+1),0
-addstr 'words/min: ',": wpm=: 60 * 1r5 * cps
-clrtoeol''
-move (STATBAR+2),0
-addstr 'accuracy: ', '%',~ ": 100 * accuracy=: n %~ +/INPUT=n{.PROMPT
-clrtoeol ''
-move (STATBAR+3),0
-addstr 'elaspsed time: ',": dt * dt > 0.0001
-clrtoeol ''
-move (STATBAR+4),0
-addstr 'position: ',": y
-clrtoeol ''
+wpm=: 60 * 1r5 * cps=: n % dt =: TIME0 -~ 6!:1 ''
+accuracy=: n %~ +/INPUT=n{.PROMPT
+putinfo 0 ; 'chars/sec:     ',": cps
+putinfo 1 ; 'words/min:     ',": wpm
+putinfo 2 ; 'accuracy:      ',": 100 * accuracy
+putinfo 3 ; 'time elapsed:  ',": dt * 0.0001 < dt
+putinfo 4 ; 'position:      ',": y
 )
+
+draw=: refresh@move@pos@status
 
 NB. key_f 1 to quit
 mid =: 3 : 0
@@ -102,10 +100,7 @@ whilst. (INPUT <&# PROMPT) *. in ~: KEY_F 1 do.
   if. 0 <: in =: getch '' NB. 127 not KEY_BACKSPACE?
   do. if. 127 -: in do. popch '' elseif. in < 256 do. putch in{a.
   end. end.
-  status ''
-  move pos ''
-  refresh''
-  (6!:3) 0.01
+  6!:3 (0.01) [ draw ''
 end. y
 )
 
