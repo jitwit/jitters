@@ -3,14 +3,6 @@ NB. useful resource: http://www.cs.ukzn.ac.za/~hughm/os/notes/ncurses.html#using
 load 'api/ncurses'
 coinsert 'ncurses'
 
-whitespace=: 9 10 11 12 13 32
-lines=: # @: (#;._2)
-words=: [: +/ 0 1 E. 0 , whitespace e.~ a.&i.
-chars=: #
-wc=: lines`words`chars `: 0
-
-NB. press enter to start? exit when match prompt
-
 NB. the default prompt. will add functionality to override
 PROMPT =: 0 : 0
 O Romeo, Romeo, wherefore art thou Romeo?
@@ -32,10 +24,9 @@ And for thy name, which is no part of thee,
 Take all myself.'
 )
 
+whitespace=: 9 10 11 12 13 32
+
 beg =: 3 : 0
-NB. 'clear' is a macro that implicitly passes '' to wclear
-NB. stdscr;''. Same for many of the other ncurses verbs.
-NB. want nodelay, will have to check for new input expliciltly
 stdscr =: initscr ''
 clear ''
 start_color ''
@@ -105,25 +96,16 @@ addstr 'position: ',": y
 clrtoeol ''
 )
 
-draw =: 3 : 0
-status ''
-move pos ''
-refresh''
-)
-
-NB. initscr must be called first
-NB. cbreak? to get char at time input
-NB. noecho to supress typed chars echoing
-NB. keypad stdscr;1{a. to use backspace, delete, arrows
-NB. endwin call to restore terminal
-
 NB. key_f 1 to quit
 mid =: 3 : 0
 whilst. (INPUT <&# PROMPT) *. in ~: KEY_F 1 do.
   if. 0 <: in =: getch '' NB. 127 not KEY_BACKSPACE?
   do. if. 127 -: in do. popch '' elseif. in < 256 do. putch in{a.
   end. end.
-  draw ''
+  status ''
+  move pos ''
+  refresh''
+  (6!:3) 0.01
 end. y
 )
 
