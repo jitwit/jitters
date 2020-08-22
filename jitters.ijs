@@ -24,6 +24,13 @@ And for thy name, which is no part of thee,
 Take all myself.'
 )
 
+NB. will figure out a tolerable way to customize prompt
+setprompt =: 3 : 0
+select. # y
+case. 2 do. PROMPT =: 1!:1 (1 { y)
+case. do. end.
+)
+
 beg =: 3 : 0
 stdscr =: initscr ''
 clear ''
@@ -100,7 +107,7 @@ whilst. (INPUT <&# PROMPT) *. in ~: KEY_F 1 do.
   if. 0 <: in =: getch '' NB. 127 not KEY_BACKSPACE?
   do. if. 127 -: in do. popch '' elseif. in < 256 do. putch in{a.
   end. end.
-  6!:3 (0.01) [ draw ''
+  (6!:3) 1r200 [ draw ''
 end. y
 )
 
