@@ -6,7 +6,6 @@ coinsert 'ncurses'
 NB. press enter to start? exit when match prompt
 NEED_ENDWIN =: 1
 TIME0 =: 0
-nada =: 0
 
 NB. the game states
 'READY RUN DONE EXIT'=: i. 4
@@ -111,7 +110,6 @@ nodelay stdscr;1{a.
 addstr PROMPT
 NEED_ENDWIN =: 1
 INPUT =: ''
-nada =: 0
 draw''
 )
 
@@ -123,7 +121,6 @@ whilst. (INPUT <&# PROMPT) *. in ~: KEY_F 1 do.
       do. popch ''
       elseif. in < 256 do. putch in{a. end. end.
   draw ''
-  6!:3 (0.001)
 end.
 )
 
