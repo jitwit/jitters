@@ -72,15 +72,18 @@ n=. #INPUT
 if. 0=n do. TIME0 =: 6!:1 '' end.
 dt =: TIME0 -~ 6!:1 ''
 move 20 0
-addstr 'chars/sec: ',": charssec=: n % dt
+addstr 'chars/sec: ',": cps=: n % dt
 clrtoeol''
 move 21 0
+addstr 'words/min: ',": wpm=: 60 * 1r5 * cps
+clrtoeol''
+move 22 0
 addstr 'accuracy: ', '%',~ ": 100 * accuracy=: n %~ +/INPUT=n{.PROMPT
 clrtoeol ''
-move 22 0
+move 23 0
 addstr 'input size: ',": n
 clrtoeol ''
-move 23 0
+move 24 0
 addstr 'position: ',": y
 clrtoeol ''
 )
