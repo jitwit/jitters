@@ -7,7 +7,7 @@ data :
 	mkdir -p $@
 
 sonnets : data
-	jconsole $@.ijs -js "exit main ''"
+	jconsole $@.ijs -js "exit dlsonnets ''"
 
 clean :
 	find . -name "*~" -exec rm {} \;
