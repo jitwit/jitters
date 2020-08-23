@@ -31,22 +31,14 @@ case. 2 do. PROMPT =: 1!:1 (1 { y)
 case. do. end.
 )
 
+pal =: 1,COLOR_WHITE,COLOR_BLACK,2,COLOR_WHITE,COLOR_RED,3,COLOR_BLUE,COLOR_BLACK
+
 beg =: 3 : 0
-stdscr =: initscr ''
-clear ''
-start_color ''
-init_pair 1, COLOR_WHITE, COLOR_BLACK
-init_pair 2, COLOR_WHITE, COLOR_RED
-init_pair 3, COLOR_BLUE, COLOR_BLACK
-raw''
-keypad stdscr;1{a.
-noecho''
-cbreak''
-nodelay stdscr;1{a.
+nodelay`keypad`:0 (1{a.) ;~ stdscr =: initscr ''
+start_color`raw`noecho`cbreak`clear`:0 ''
+_3 init_pair\ pal
+'INPUT TIME0 NEED_ENDWIN' =: '' ; 0 ; 1
 addstr PROMPT
-NEED_ENDWIN =: 1
-TIME0 =: 0
-INPUT =: ''
 y [ draw''
 )
 
@@ -105,7 +97,7 @@ NB. key_f 1 to quit
 mid =: 3 : 0
 whilst. INPUT <&# PROMPT do.
   if. 0 <: in =: getch '' do.
-    if.     127 -: in    do. popch ''
+    if.     in -: 127    do. popch ''
     elseif. in = KEY_F 1 do. break.
     elseif. in < 256     do. putch in{a. end.
   end. 6!:3 (1r200) [ draw '' end.
