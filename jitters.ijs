@@ -81,8 +81,8 @@ whilst. INPUT <&# PROMPT do.
 end =: 3 : 0
 endwin ^: NEED_ENDWIN y
 NEED_ENDWIN =: 0
-info =. ('...' ,~ 20 {. PROMPT);cps;wpm;(100*accuracy);dt
-hdr =. ;: 'prompt cps wpm acc time'
+info =. (>SONNET);cps;wpm;(100*accuracy);dt
+hdr =. ;: 'sonnet cps wpm acc time'
 hdr ,. info
 )
 
