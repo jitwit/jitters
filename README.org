@@ -1,0 +1,8 @@
+* Jitters
+
+A typing game or a typing speed test (I'm not sure) whose prompts are
+Shakespeare sonnets.
+
+* Depends
+
+The [[https://github.com/jsoftware/api_ncurses][ncurses]] addon, J, and wget to fetch the sonnets

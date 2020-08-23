@@ -6,14 +6,15 @@ coinsert 'ncurses'
 pal =: 1,COLOR_WHITE,COLOR_BLACK,2,COLOR_WHITE,COLOR_RED,3,COLOR_BLUE,COLOR_BLACK
 
 beg =: 3 : 0
+9!:1 <. 1000000 * 1 | 6!:1 ''
 nodelay`keypad`:0 (1{a.) ;~ stdscr =: initscr ''
 start_color`raw`noecho`cbreak`clear`:0 ''
 _3 init_pair\ pal
 'INPUT TIME0 NEED_ENDWIN' =: '' ; 0 ; 1
 addstr PROMPT =: 1!:1 SONNET =: ({~ ?@#) 1 dir 'data/sonnet.*.txt'
 STATBAR =: 1 + +/ LF = PROMPT
-(LF,~>SONNET) 1!:2 < jpath '~/.jitter'
-y [ draw''
+(LF,~(": 6!:0 ''),~':  ',~_4}.5}.>SONNET) 1!:3 < jpath '~/.jitter'
+y [ draw ''
 )
 
 NB. keys get appended here to input. this will be compared with PROMPT
@@ -62,6 +63,7 @@ putinfo 1 ; 'words/min: ',": wpm
 putinfo 2 ; 'accuracy:  ',": 100 * accuracy
 putinfo 3 ; 'time:      ',": dt * 0.0001 < dt
 putinfo 4 ; 'position:  ',": pos ''
+NB. putinfo 5 ; 'sonnet:    ',   SONNET
 )
 
 draw=: refresh@move@pos@status
