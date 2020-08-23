@@ -57,10 +57,10 @@ INPUT =: ''
 STATBAR =: 2 + +/ LF = PROMPT
 
 popch =: 3 : 0
-INPUT =: (_1 - LF-:{:INPUT) }. INPUT
+INPUT =: }: INPUT
 attron COLOR_PAIR 1
 move pos ''
-addstr ,: (#INPUT) { PROMPT
+addstr ,: PROMPT {~ #INPUT
 attroff COLOR_PAIR 1
 )
 
@@ -69,7 +69,7 @@ ok =. y = PROMPT {~ n =. #INPUT
 mode =. 2 + ok
 attron COLOR_PAIR mode
 move pos ''
-addstr ,: ok { (n{PROMPT),y
+addstr ,: ok { y,~ n { PROMPT
 attroff COLOR_PAIR mode
 INPUT =: INPUT,y
 )
@@ -83,15 +83,15 @@ i , n - (*i) * 1 + row i: 1
 
 putinfo =: 3 : 0
 'off msg' =. y
-move (STATBAR+off),0
+move 0,~STATBAR+off
 addstr msg
 clrtoeol ''
 )
 
 status =: 3 : 0
-if. 0=n=.#INPUT do. TIME0 =: 6!:1 '' end.
+if. 0 = n=. #INPUT do. TIME0 =: 6!:1 '' end.
 wpm=: 60 * 1r5 * cps=: n % dt =: TIME0 -~ 6!:1 ''
-accuracy=: n %~ +/INPUT=n{.PROMPT
+accuracy=: n %~ +/ INPUT= n {. PROMPT
 putinfo 0 ; 'chars/sec:     ',": cps
 putinfo 1 ; 'words/min:     ',": wpm
 putinfo 2 ; 'accuracy:      ',": 100 * accuracy
@@ -103,19 +103,19 @@ draw=: refresh@move@pos@status
 
 NB. key_f 1 to quit
 mid =: 3 : 0
-whilst. (INPUT <&# PROMPT) *. in ~: KEY_F 1 do.
+whilst. INPUT <&# PROMPT do.
   if. 0 <: in =: getch '' NB. 127 not KEY_BACKSPACE?
-  do. if. 127 -: in do. popch '' elseif. in < 256 do. putch in{a.
-  end. end.
-  (6!:3) 1r200 [ draw ''
-end. y
+  do. if. 127 -: in do. popch ''
+      elseif. in = KEY_F 1 do. break.
+      elseif. in < 256 do. putch in{a. end.
+  end. 6!:3 (1r200) [ draw '' end.
 )
 
 end =: 3 : 0
 endwin ^: NEED_ENDWIN y
 NEED_ENDWIN =: 0
-info =. ('...' ,~ 20 {. PROMPT); cps;wpm;(100*accuracy);dt
-hdr =. (;: 'prompt cps wpm acc time')
+info =. ('...' ,~ 20 {. PROMPT);cps;wpm;(100*accuracy);dt
+hdr =. ;: 'prompt cps wpm acc time'
 hdr ,. info
 )
 
