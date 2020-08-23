@@ -10,7 +10,7 @@ nodelay`keypad`:0 (1{a.) ;~ stdscr =: initscr ''
 start_color`raw`noecho`cbreak`clear`:0 ''
 _3 init_pair\ pal
 'INPUT TIME0 NEED_ENDWIN' =: '' ; 0 ; 1
-addstr PROMPT =: 1!:1 SONNET =: ({~ ?.@#) 1 dir 'data/sonnet.*.txt'
+addstr PROMPT =: 1!:1 SONNET =: ({~ ?@#) 1 dir 'data/sonnet.*.txt'
 STATBAR =: 1 + +/ LF = PROMPT
 (LF,~>SONNET) 1!:2 < jpath '~/.jitter'
 y [ draw''
