@@ -3,34 +3,6 @@ NB. useful resource: http://www.cs.ukzn.ac.za/~hughm/os/notes/ncurses.html#using
 load 'api/ncurses'
 coinsert 'ncurses'
 
-NB. the default prompt. will add functionality to override
-PROMPT =: 0 : 0
-O Romeo, Romeo, wherefore art thou Romeo?
-Deny thy father and refuse thy name.
-Or if thou wilt not, be but sworn my love,
-And I'll no longer be a Capulet.
-
-'Tis but thy name that is my enemy;
-Thou art thyself, though not a Montague.
-What's Montague? It is nor hand nor foot,
-Nor arm, nor face, nor any other part
-Belonging to a man. O be some other name.
-What's in a name? That which we call a rose
-By any other name would smell as sweet;
-So Romeo would, were he not Romeo call'd,
-Retain that dear perfection which he owes
-Without that title. Romeo, doff thy name,
-And for thy name, which is no part of thee,
-Take all myself.'
-)
-
-NB. will figure out a tolerable way to customize prompt
-setprompt =: 3 : 0
-select. # y
-case. 2 do. PROMPT =: 1!:1 (1 { y)
-case. do. end.
-)
-
 pal =: 1,COLOR_WHITE,COLOR_BLACK,2,COLOR_WHITE,COLOR_RED,3,COLOR_BLUE,COLOR_BLACK
 
 beg =: 3 : 0
@@ -38,7 +10,9 @@ nodelay`keypad`:0 (1{a.) ;~ stdscr =: initscr ''
 start_color`raw`noecho`cbreak`clear`:0 ''
 _3 init_pair\ pal
 'INPUT TIME0 NEED_ENDWIN' =: '' ; 0 ; 1
-addstr PROMPT
+addstr PROMPT =: 1!:1 SONNET =: ({~ ?.@#) 1 dir 'data/sonnet.*.txt'
+STATBAR =: 1 + +/ LF = PROMPT
+(LF,~>SONNET) 1!:2 < jpath '~/.jitter'
 y [ draw''
 )
 
@@ -46,7 +20,6 @@ NB. keys get appended here to input. this will be compared with PROMPT
 NB. and various status information will be displayed somewhere and
 NB. colors will indicate mistakes.
 INPUT =: ''
-STATBAR =: 1 + +/ LF = PROMPT
 
 popch =: 3 : 0
 INPUT =: }: INPUT
