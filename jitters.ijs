@@ -13,7 +13,7 @@ _3 init_pair\ pal
 'INPUT TIME0 NEED_ENDWIN' =: '' ; 0 ; 1
 addstr PROMPT =: 1!:1 SONNET =: ({~ ?@#) 1 dir 'data/sonnet.*.txt'
 STATBAR =: 1 + +/ LF = PROMPT
-(LF,~(": 6!:0 ''),~':  ',~_4}.5}.>SONNET) 1!:3 < jpath '~/.jitter'
+(LF,~(": 6!:0 ''),' => ',5}.>SONNET) 1!:3 < jpath '~/.jitter'
 y [ draw ''
 )
 
