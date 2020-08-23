@@ -54,7 +54,7 @@ NB. keys get appended here to input. this will be compared with PROMPT
 NB. and various status information will be displayed somewhere and
 NB. colors will indicate mistakes.
 INPUT =: ''
-STATBAR =: 2 + +/ LF = PROMPT
+STATBAR =: 1 + +/ LF = PROMPT
 
 popch =: 3 : 0
 INPUT =: }: INPUT
@@ -92,11 +92,11 @@ status =: 3 : 0
 if. 0 = n=. #INPUT do. TIME0 =: 6!:1 '' end.
 wpm=: 60 * 1r5 * cps=: n % dt =: TIME0 -~ 6!:1 ''
 accuracy=: n %~ +/ INPUT= n {. PROMPT
-putinfo 0 ; 'chars/sec:     ',": cps
-putinfo 1 ; 'words/min:     ',": wpm
-putinfo 2 ; 'accuracy:      ',": 100 * accuracy
-putinfo 3 ; 'time elapsed:  ',": dt * 0.0001 < dt
-putinfo 4 ; 'position:      ',": pos ''
+putinfo 0 ; 'chars/sec: ',": cps
+putinfo 1 ; 'words/min: ',": wpm
+putinfo 2 ; 'accuracy:  ',": 100 * accuracy
+putinfo 3 ; 'time:      ',": dt * 0.0001 < dt
+putinfo 4 ; 'position:  ',": pos ''
 )
 
 draw=: refresh@move@pos@status
@@ -104,10 +104,10 @@ draw=: refresh@move@pos@status
 NB. key_f 1 to quit
 mid =: 3 : 0
 whilst. INPUT <&# PROMPT do.
-  if. 0 <: in =: getch '' NB. 127 not KEY_BACKSPACE?
-  do. if. 127 -: in do. popch ''
-      elseif. in = KEY_F 1 do. break.
-      elseif. in < 256 do. putch in{a. end.
+  if. 0 <: in =: getch '' do.
+    if.     127 -: in    do. popch ''
+    elseif. in = KEY_F 1 do. break.
+    elseif. in < 256     do. putch in{a. end.
   end. 6!:3 (1r200) [ draw '' end.
 )
 
