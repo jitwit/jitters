@@ -17,5 +17,5 @@ dlwget ('data/',y);url,y
 )
 
 get_sonnets =: 3 : 0
-dlsonnet &> 'sonnet.[IVXLM]+.html' rxall 1!:1 < 'sonnet-index.html'
+dlsonnet &> 'sonnet.[IVXLCDM]+.html' rxall 1!:1 < 'sonnet-index.html'
 )
