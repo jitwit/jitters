@@ -1,5 +1,4 @@
 coclass 'jitters'
-NB. useful resource: http://www.cs.ukzn.ac.za/~hughm/os/notes/ncurses.html#using
 load 'api/ncurses'
 coinsert 'ncurses'
 
@@ -7,20 +6,14 @@ pal =: 1,COLOR_WHITE,COLOR_BLACK,2,COLOR_WHITE,COLOR_RED,3,COLOR_BLUE,COLOR_BLAC
 
 beg =: 3 : 0
 9!:1 <. 1000000 * 1 | 6!:1 ''
-nodelay`keypad`:0 (1{a.) ;~ stdscr =: initscr ''
+nodelay`keypad`:0 (1{a.) ;~ stdscr =: initscr INPUT =: ''
 start_color`raw`noecho`cbreak`clear`:0 ''
 _3 init_pair\ pal
-'INPUT TIME0 NEED_ENDWIN' =: '' ; 0 ; 1
 addstr PROMPT =: 1!:1 SONNET =: ({~ ?@#) 1 dir 'data/sonnet.*.txt'
 STATBAR =: 1 + +/ LF = PROMPT
 (LF,~(": 6!:0 ''),' => ',5}.>SONNET) 1!:3 < jpath '~/.jitter'
 y [ draw ''
 )
-
-NB. keys get appended here to input. this will be compared with PROMPT
-NB. and various status information will be displayed somewhere and
-NB. colors will indicate mistakes.
-INPUT =: ''
 
 popch =: 3 : 0
 INPUT =: }: INPUT
@@ -63,7 +56,6 @@ putinfo 1 ; 'words/min: ',": wpm
 putinfo 2 ; 'accuracy:  ',": 100 * accuracy
 putinfo 3 ; 'time:      ',": dt * 0.0001 < dt
 putinfo 4 ; 'position:  ',": pos ''
-NB. putinfo 5 ; 'sonnet:    ',   SONNET
 )
 
 draw=: refresh@move@pos@status
@@ -79,13 +71,11 @@ whilst. INPUT <&# PROMPT do.
 )
 
 end =: 3 : 0
-endwin ^: NEED_ENDWIN y
-NEED_ENDWIN =: 0
+endwin ''
 info =. (>SONNET);cps;wpm;(100*accuracy);dt
 hdr =. ;: 'sonnet cps wpm acc time'
 hdr ,. info
 )
 
-NB. wrapping end hides errors
 jitters =: end@mid@beg :: end
 jitters_z_ =: jitters_jitters_
