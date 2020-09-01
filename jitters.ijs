@@ -17,18 +17,15 @@ y [ draw ''
 
 popch =: 3 : 0
 INPUT =: }: INPUT
-attron COLOR_PAIR 1
-move pos ''
-addstr ,: PROMPT {~ #INPUT
 attroff COLOR_PAIR 1
+addstr,:PROMPT{~#INPUT[move pos ''
+attron COLOR_PAIR 1
 )
 
 putch =: 3 : 0
-ok =. y = PROMPT {~ n =. #INPUT
-mode =. 2 + ok
+mode =. 2 + ok =. y = PROMPT {~ n =. #INPUT
 attron COLOR_PAIR mode
-move pos ''
-addstr ,: ok { y,~ n { PROMPT
+addstr ,: ok { y,~ n { PROMPT[move pos ''
 attroff COLOR_PAIR mode
 INPUT =: INPUT,y
 )
@@ -41,10 +38,7 @@ i , n - (*i) * 1 + row i: 1
 )
 
 putinfo =: 3 : 0
-'off msg' =. y
-move 0,~STATBAR+off
-addstr msg
-clrtoeol ''
+clrtoeol ''[addstr msg[move 0,~STATBAR+off['off msg' =. y
 )
 
 status =: 3 : 0
