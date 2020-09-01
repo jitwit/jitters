@@ -3,6 +3,14 @@
 A typing game or a typing speed test (I'm not sure) whose prompts are
 Shakespeare sonnets.
 
+* Installation
+
+From the jconsole, with pacman:
+
+#+begin_src j :session :exports both
+install 'github:jitwit/jitters@a'
+#+end_src 
+
 * Depends
 
-The [[https://github.com/jsoftware/api_ncurses][ncurses]] addon, J, and wget to fetch the sonnets
+ncurses, J

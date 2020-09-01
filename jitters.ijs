@@ -11,7 +11,6 @@ start_color`raw`noecho`cbreak`clear`:0 ''
 _3 init_pair\ pal
 addstr PROMPT =: 1!:1 SONNET =: ({~ ?@#) 1 dir 'data/sonnet.*.txt'
 STATBAR =: 1 + +/ LF = PROMPT
-(LF,~(": 6!:0 ''),' => ',5}.>SONNET) 1!:3 < jpath '~/.jitter'
 y [ draw ''
 )
 
@@ -65,10 +64,10 @@ whilst. INPUT <&# PROMPT do.
 )
 
 end =: 3 : 0
-endwin ''
+endwin log =. < jpath '~user/temp/jitter.txt'
+log 1!:3~ ((":6!:0''),TAB,(":wpm),TAB,(":100*accuracy),LF) 
 info =. (>SONNET);cps;wpm;(100*accuracy);dt
-hdr =. ;: 'sonnet cps wpm acc time'
-hdr ,. info
+info ,.~ ;: 'sonnet cps wpm acc time'
 )
 
 jitters =: end@mid@beg :: end
