@@ -14,4 +14,5 @@ sonnets : data
 
 clean :
 	find . -name "*~" -exec rm {} \;
+	find . -name "*.html" -exec rm {} \;
 
