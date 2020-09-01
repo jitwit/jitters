@@ -1,7 +1,10 @@
 .PHONY : clean run sonnets
 
 run :
-	jconsole jitters.ijs -js "exit echo jitters ''"
+	jconsole jitters.ijs -js \
+		"shakespath_jitters_ =: jcwdpath'data'" \
+		"jitters ''" \
+		"exit 0"
 
 data :
 	mkdir -p $@

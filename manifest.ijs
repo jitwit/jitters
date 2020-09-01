@@ -1,6 +1,9 @@
 CAPTION =: 'jitters -- a typing experience'
 DESCRIPTION =: 'ncurses typing experience'
-VERSION =: '1.0.5'
+VERSION =: '1.0.6'
 FOLDER =: 'games/jitters'
 DEPENDS =: 'api/ncurses'
-FILES =: 'jitters.ijs'
+FILES =: 0 : 0
+jitters.ijs
+data/*.txt
+)

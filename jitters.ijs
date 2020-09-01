@@ -3,13 +3,15 @@ load 'api/ncurses'
 coinsert 'ncurses'
 
 pal =: 1,COLOR_WHITE,COLOR_BLACK,2,COLOR_WHITE,COLOR_RED,3,COLOR_BLUE,COLOR_BLACK
+shakespath =: jpath '~addons/games/jitters/data'
 
 beg =: 3 : 0
 9!:1 <. 1000000 * 1 | 6!:1 ''
 nodelay`keypad`:0 (1{a.) ;~ stdscr =: initscr INPUT =: ''
 start_color`raw`noecho`cbreak`clear`:0 ''
 _3 init_pair\ pal
-addstr PROMPT =: 1!:1 SONNET =: ({~ ?@#) 1 dir 'data/sonnet.*.txt'
+SONNET =: ({~ ?@#) 1 dir shakespath,'/*.txt'
+addstr PROMPT =: 1!:1 SONNET
 STATBAR =: 1 + +/ LF = PROMPT
 y [ draw ''
 )
@@ -68,7 +70,7 @@ log =. < jpath '~user/temp/jitter.txt'
 log 1!:3~ ((":6!:0''),TAB,(":wpm),TAB,(":100*accuracy),LF)
 endwin ''
 info =. (>SONNET);cps;wpm;(100*accuracy);dt
-info ,.~ ;: 'sonnet cps wpm acc time'
+echo_z_ info ,.~ ;: 'sonnet cps wpm acc time'
 )
 
 jitters =: end@mid@beg :: end
