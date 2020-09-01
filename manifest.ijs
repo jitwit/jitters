@@ -6,4 +6,5 @@ DEPENDS =: 'api/ncurses'
 FILES =: 0 : 0
 jitters.ijs
 data/
+data/*.txt
 )
