@@ -64,8 +64,9 @@ whilst. INPUT <&# PROMPT do.
 )
 
 end =: 3 : 0
-endwin log =. < jpath '~user/temp/jitter.txt'
-log 1!:3~ ((":6!:0''),TAB,(":wpm),TAB,(":100*accuracy),LF) 
+log =. < jpath '~user/temp/jitter.txt'
+log 1!:3~ ((":6!:0''),TAB,(":wpm),TAB,(":100*accuracy),LF)
+endwin ''
 info =. (>SONNET);cps;wpm;(100*accuracy);dt
 info ,.~ ;: 'sonnet cps wpm acc time'
 )
