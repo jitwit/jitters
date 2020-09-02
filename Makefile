@@ -1,5 +1,6 @@
-.PHONY : clean run sonnets
+.PHONY : run clean sonnets
 
+J = jconsole
 VERSION = '1.0.9'
 CAPTION = 'jitters - a typing experience'
 DESCRIPTION = 'ncurses typing experience'
@@ -8,7 +9,7 @@ DEPENDS = 'api/ncurses'
 FILES = jitters.ijs data/*.txt
 
 run :
-	jconsole jitters.ijs -js \
+	$(J) jitters.ijs -js \
 		"shakespath_jitters_ =: jcwdpath'data'" \
 		"jitters ''" \
 		"exit 0"

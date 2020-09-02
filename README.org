@@ -13,4 +13,4 @@ install 'github:jitwit/jitters@a'
 
 * Depends
 
-ncurses, J
+ncurses, J, api_ncurses
