@@ -64,7 +64,8 @@ whilst. INPUT <&# PROMPT do.
     if.     in -: 127    do. popch ''
     elseif. in = KEY_F 1 do. break.
     elseif. in < 256     do. putch in{a. end.
-  end. 6!:3 (1r200) [ draw '' end.
+  end.  6!:3 ] 1r200 [ draw ''
+end.
 )
 
 end =: 3 : 0

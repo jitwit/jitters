@@ -22,16 +22,17 @@ pd 'show'
 )
 
 lastround =: 3 : 0
+frame =. 200
 pd 'reset; visible 0'
-pd 'title jitters; subtitle prev rolling cps; xcaption char; ycaption 1/dt'
+pd 'title jitters; subtitle rolling wpm; xcaption frame'
+pd 'ycaption wpm over ',(":frame),' chars'
 pd 'type dot; pensize 1.5; color 20 120 255'
-pd % 5 (+/%#)\ 2 -~/\ stamp
+pd 12 * 1 % frame (+/%#)\ 2 -~/\ stamp
 pd 'show'
 )
 
 wpmvacc''
 overtime''
 lastround''
-
 NB. ]dat =. log #~ -. 0 e."1 log
 NB. (%. 1 ,. ])/ dat
