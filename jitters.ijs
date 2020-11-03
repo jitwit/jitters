@@ -7,7 +7,7 @@ shakespath =: jpath '~addons/games/jitters/data'
 
 beg =: 3 : 0
 9!:1 <. 1000000 * 1 | 6!:1 ''
-nodelay`keypad`:0 (1{a.) ;~ stdscr =: initscr INPUT =: ''
+nodelay`keypad`:0 (1{a.) ;~ stdscr =: initscr TIMES =: INPUT =: ''
 start_color`raw`noecho`cbreak`clear`:0 ''
 _3 init_pair\ pal
 SONNET =: ({~ ?@#) 1 dir shakespath,'/*.txt'
@@ -18,6 +18,7 @@ y [ draw ''
 
 popch =: 3 : 0
 INPUT =: }: INPUT
+TIMES =: }: TIMES
 attroff COLOR_PAIR 1
 addstr,:PROMPT{~#INPUT[move pos ''
 attron COLOR_PAIR 1
@@ -29,6 +30,7 @@ attron COLOR_PAIR mode
 addstr ,: ok { y,~ n { PROMPT[move pos ''
 attroff COLOR_PAIR mode
 INPUT =: INPUT,y
+TIMES =: TIMES,6!:1''
 )
 
 NB. based on input, determine what ncurses position should
@@ -67,10 +69,12 @@ whilst. INPUT <&# PROMPT do.
 
 end =: 3 : 0
 log =. < jpath '~user/temp/jitter.txt'
+stamp =. < jpath '~user/temp/jitter_stamp.txt'
 log 1!:3~ ((":6!:0''),TAB,(":wpm),TAB,(":100*accuracy),LF)
 endwin ''
 info =. (>SONNET);cps;wpm;(100*accuracy);dt
 echo_z_ info ,.~ ;: 'sonnet cps wpm acc time'
+stamp 1!:2~ ":TIMES
 )
 
 jitters =: end@mid@beg :: end
