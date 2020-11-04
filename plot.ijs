@@ -21,21 +21,20 @@ pd 'key wpm acc; keypos top,outside,right'
 pd 'show'
 )
 
+frames =: 200 100 20 10
+coords =: {{ y ;~ (-:x) + i. # y }}
+framecoords =: {{ y coords 12 * 1 % y (+/%#)\ 2 -~/\ stamp }}
+
 lastround =: 3 : 0
-frame =. 200
-minif =. 20
 pd 'reset; visible 0'
 pd 'title jitters; subtitle rolling wpm'
 pd 'xcaption char;ycaption wpm'
-pd 'type dot; pensize 1; color 20 200 140,244 160 10,255 20 120,20 120 255'
-pd (;~ (-:-:minif)+i.@#) 12 * 1 % (-:minif) (+/%#)\ 2 -~/\ stamp
-pd (;~ (-:frame)+i.@#) 12 * 1 % frame (+/%#)\ 2 -~/\ stamp
-pd (;~ (-:minif) + i.@#) 12 * 1 % minif (+/%#)\ 2 -~/\ stamp
-pd (;~ (-:-:frame)+i.@#) 12 * 1 % (-:frame) (+/%#)\ 2 -~/\ stamp
-pd 'key ',": minif ,&(,~-:) frame
+pd 'type dot; pensize 1; color 20 200 140,255 100 0,255 20 120,20 120 255'
+pd"1 framecoords"0 frames
+pd 'key ',": frames
 pd 'show'
 )
 
-wpmvacc''
-overtime''
-lastround''
+NB. wpmvacc ''
+NB. overtime ''
+lastround ''
