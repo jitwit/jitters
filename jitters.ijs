@@ -75,7 +75,7 @@ log 1!:3~ ((":6!:0''),TAB,(":wpm),TAB,(":100*accuracy),LF)
 endwin ''
 info =. (>SONNET);cps;wpm;(100*accuracy);dt
 echo_z_ info ,.~ ;: 'sonnet cps wpm acc time'
-stamp 1!:3~ LF,(>SONNET),TAB,":TIMES
+stamp 1!:3~ LF,~(>SONNET),TAB,":TIMES
 )
 
 jitters =: end@mid@beg :: end

@@ -49,5 +49,6 @@ dts =: chs (+/%#)/. (1+y) ({:-{.)\ stamp
 
 NB. wpmvacc ''
 NB. overtime ''
-NB. lastround ''
 NB. timeofchars 1
+lastround ''
+
