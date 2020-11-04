@@ -23,16 +23,19 @@ pd 'show'
 
 lastround =: 3 : 0
 frame =. 200
+minif =. 20
 pd 'reset; visible 0'
-pd 'title jitters; subtitle rolling wpm over ',(":frame),' chars'
-pd 'xcaption frame;ycaption wpm'
-pd 'type dot; pensize 1.5; color 20 120 255'
-pd 12 * 1 % frame (+/%#)\ 2 -~/\ stamp
+pd 'title jitters; subtitle rolling wpm'
+pd 'xcaption char;ycaption wpm'
+pd 'type dot; pensize 1; color 20 200 140,244 160 10,255 20 120,20 120 255'
+pd (;~ (-:-:minif)+i.@#) 12 * 1 % (-:minif) (+/%#)\ 2 -~/\ stamp
+pd (;~ (-:frame)+i.@#) 12 * 1 % frame (+/%#)\ 2 -~/\ stamp
+pd (;~ (-:minif) + i.@#) 12 * 1 % minif (+/%#)\ 2 -~/\ stamp
+pd (;~ (-:-:frame)+i.@#) 12 * 1 % (-:frame) (+/%#)\ 2 -~/\ stamp
+pd 'key ',": minif ,&(,~-:) frame
 pd 'show'
 )
 
 wpmvacc''
 overtime''
 lastround''
-NB. ]dat =. log #~ -. 0 e."1 log
-NB. (%. 1 ,. ])/ dat

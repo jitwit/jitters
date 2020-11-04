@@ -1,4 +1,4 @@
-VERSION =: '1.0.9'
+VERSION =: '1.0.10'
 CAPTION =: 'jitters - a typing experience'
 DESCRIPTION =: 'ncurses typing experience'
 FOLDER =: 'games/jitters'
