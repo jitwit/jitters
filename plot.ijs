@@ -1,8 +1,12 @@
 require 'plot'
 
-log =. _2 _1 {"1 (0&".) (;._2) 1!:1 < jpath '~user/temp/jitter.txt'
-log =. |: log #~ (*./"1) 50 < log
-stamp =. 0 ". 1!:1 < jpath '~user/temp/jitter_stamp.txt'
+log =: _2 _1 {"1 (0&".) (;._2) 1!:1 < jpath '~user/temp/jitter.txt'
+log =: |: log #~ (*./"1) 50 < log
+charhist =: (<;._2) 1!:1 < jpath '~user/temp/jitter_stamp.txt'
+
+NB. most recent
+'son stamp' =: (<;._1) TAB,>{:charhist
+stamp =: 0 ". stamp
 
 wpmvacc =: 3 : 0
 pd 'reset; visible 0'
@@ -17,7 +21,7 @@ pd 'reset; visible 0'
 pd 'title jitters; subtitle performance over time; xcaption wpm; ycaption acc'
 pd 'type dot; pensize 1.5; color 255 20 120,20 120 255'
 pd"1 log
-pd 'key wpm acc; keypos top,outside,right'
+pd 'key wpm acc' NB. ; keypos top,outside,right'
 pd 'show'
 )
 
@@ -35,6 +39,15 @@ pd 'key ',": frames
 pd 'show'
 )
 
+NB. don't know how long for first char so that should be the one
+NB. dropped?
+timeofchars =: 3 : 0
+chs =: y ]\ }. 1!:1 < son
+dts =: chs (+/%#)/. (1+y) ({:-{.)\ stamp
+(~.chs) (;&((\:dts)&{)) ,. dts
+)
+
 NB. wpmvacc ''
 NB. overtime ''
-lastround ''
+NB. lastround ''
+NB. timeofchars 1
