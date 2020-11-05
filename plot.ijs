@@ -1,11 +1,13 @@
 require 'plot'
 
+ls =: 2 -~/\ I. LF=;(LF,1!:1@<) &.> 1 dir 'data'
+N =: >. (+/%#) ls
 log =: _2 _1 {"1 (0&".) (;._2) 1!:1 < jpath '~user/temp/jitter.txt'
 log =: |: log #~ (*./"1) 50 < log
 charhist =: (<;._2) 1!:1 < jpath '~user/temp/jitter_stamp.txt'
 
 NB. most recent
-'son stamp' =: (<;._1) TAB,>{:charhist
+'son stamp' =: (<;._1) TAB,4 {:: charhist
 stamp =: 0 ". stamp
 
 wpmvacc =: 3 : 0
@@ -25,7 +27,7 @@ pd 'key wpm acc' NB. ; keypos top,outside,right'
 pd 'show'
 )
 
-frames =: 200 100 20 10
+frames =: 1 2 4 8 * N NB. use average line length to reduce noise
 coords =: {{ y ;~ (-:x) + i. # y }}
 framecoords =: {{ y coords 12 * 1 % y (+/%#)\ 2 -~/\ stamp }}
 
@@ -47,8 +49,8 @@ dts =: chs (+/%#)/. (1+y) ({:-{.)\ stamp
 (~.chs) (;&((\:dts)&{)) ,. dts
 )
 
-NB. wpmvacc ''
-NB. overtime ''
-NB. timeofchars 1
-lastround ''
 
+wpmvacc ''
+overtime ''
+lastround ''
+timeofchars 1

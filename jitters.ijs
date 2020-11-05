@@ -6,7 +6,7 @@ pal =: 1,COLOR_WHITE,COLOR_BLACK,2,COLOR_WHITE,COLOR_RED,3,COLOR_BLUE,COLOR_BLAC
 shakespath =: jpath '~addons/games/jitters/data'
 
 beg =: 3 : 0
-9!:1 <. 1000000 * 1 | 6!:1 ''
+RECORD =: 1 [ 9!:1 <. 1000000 * 1 | 6!:1 ''
 nodelay`keypad`:0 (1{a.) ;~ stdscr =: initscr TIMES =: INPUT =: ''
 start_color`raw`noecho`cbreak`clear`:0 ''
 _3 init_pair\ pal
@@ -63,6 +63,7 @@ whilst. INPUT <&# PROMPT do.
   if. 0 <: in =: getch '' do.
     if.     in -: 127    do. popch ''
     elseif. in = KEY_F 1 do. break.
+    elseif. in = KEY_F 2 do. RECORD =: 0 break.
     elseif. in < 256     do. putch in{a. end.
   end.  6!:3 ] 1r200 [ draw ''
 end.
@@ -71,11 +72,11 @@ end.
 end =: 3 : 0
 log =. < jpath '~user/temp/jitter.txt'
 stamp =. < jpath '~user/temp/jitter_stamp.txt'
-log 1!:3~ ((":6!:0''),TAB,(":wpm),TAB,(":100*accuracy),LF)
+log 1!:3~^:RECORD ((":6!:0''),TAB,(":wpm),TAB,(":100*accuracy),LF)
 endwin ''
 info =. (>SONNET);cps;wpm;(100*accuracy);dt
 echo_z_ info ,.~ ;: 'sonnet cps wpm acc time'
-stamp 1!:3~ LF,~(>SONNET),TAB,":TIMES
+stamp 1!:3~^:RECORD LF,~(>SONNET),TAB,":TIMES
 )
 
 jitters =: end@mid@beg :: end
