@@ -7,10 +7,13 @@ Shakespeare sonnets.
 
 From the jconsole, with pacman:
 
-#+begin_src j :session :exports both
+#+begin_src J :session :exports both
 install 'github:jitwit/jitters@a'
 #+end_src 
 
 * Depends
 
-ncurses, J, api_ncurses
+J, ncurses, along with the api_ncurses addon
+* Plot
+#+caption: rolling wpm
+[[file:misc/example-plot.png]]

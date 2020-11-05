@@ -7,7 +7,7 @@ log =: |: log #~ (*./"1) 50 < log
 charhist =: (<;._2) 1!:1 < jpath '~user/temp/jitter_stamp.txt'
 
 NB. most recent
-'son stamp' =: (<;._1) TAB,4 {:: charhist
+'son stamp' =: (<;._1) TAB,0{::charhist
 stamp =: 0 ". stamp
 
 wpmvacc =: 3 : 0
@@ -33,7 +33,7 @@ framecoords =: {{ y coords 12 * 1 % y (+/%#)\ 2 -~/\ stamp }}
 
 lastround =: 3 : 0
 pd 'reset; visible 0'
-pd 'title jitters; subtitle rolling wpm'
+pd 'title jitters; subtitle rolling wpm (',(>{:<;._1 son),')'
 pd 'xcaption char;ycaption wpm'
 pd 'type dot; pensize 1; color 20 200 140,255 100 0,255 20 120,20 120 255'
 pd"1 framecoords"0 frames
