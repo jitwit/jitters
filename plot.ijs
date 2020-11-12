@@ -3,7 +3,7 @@ require 'plot'
 ls =: 2 -~/\ I. LF=;(LF,1!:1@<) &.> 1 dir 'data'
 N =: >. (+/%#) ls
 log =: _2 _1 {"1 (0&".) (;._2) 1!:1 < jpath '~user/temp/jitter.txt'
-log =: |: log #~ (*./"1) 0 < log
+log =: |: log #~ (*./"1) 50 < log
 charhist =: (<;._2) 1!:1 < jpath '~user/temp/jitter_stamp.txt'
 
 NB. most recent
@@ -18,7 +18,7 @@ pd 'title jitters; subtitle wpm v. acc; xcaption wpm; ycaption acc'
 pd 'type dot; pensize 1.5; color 0 200 220'
 pd ind;dep
 pd 'type line; pensize 3; color 20 120 255'
-pd (; ax_b&p.) (<./ , >./) ind
+pd (; b_ax&p.) (<./ , >./) ind
 pd 'show'
 )
 
@@ -49,14 +49,14 @@ pd 'keypos right; show'
 
 NB. don't know how long for first char so that should be the one
 NB. dropped?
-timeofchars =: 3 : 0
-chs =: y ]\ }. 1!:1 < son
-dts =: chs (+/%#)/. (1+y) ({:-{.)\ stamp
+timeofchars =: 4 : 0
+stamp =. 0 ". stamp [ 'son stamp' =. (<;._1) TAB,y
+chs =: x ]\ }. 1!:1 < son
+dts =: chs (+/%#)/. (1+x) ({:-{.)\ stamp
 (~.chs) (;&((\:dts)&{)) ,. dts
 )
 
-NB. wpmvacc ''
+wpmvacc ''
 NB. overtime ''
-lastround ''
-NB. timeofchars 1
-
+NB. lastround ''
+NB. alltimeofchars 1
