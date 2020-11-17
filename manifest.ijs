@@ -1,9 +1,14 @@
-VERSION =: '1.0.10'
+VERSION =: '1.0.11'
 CAPTION =: 'jitters - a typing experience'
 DESCRIPTION =: 'ncurses typing experience'
 FOLDER =: 'games/jitters'
 FILES =: 0 : 0
+DEPENDS =: 0 : 0
+api/ncurses
+graphics/plot
+)
 jitters.ijs
+plot.ijs
 data/sonnet.CIII.txt
 data/sonnet.CII.txt
 data/sonnet.CI.txt

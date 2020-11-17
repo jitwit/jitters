@@ -1,12 +1,12 @@
 .PHONY : run clean sonnets
 
 J = jconsole
-VERSION = '1.0.9'
+VERSION = '1.0.11'
 CAPTION = 'jitters - a typing experience'
 DESCRIPTION = 'ncurses typing experience'
 FOLDER = 'games/jitters'
-DEPENDS = 'api/ncurses'
-FILES = jitters.ijs data/*.txt
+DEPENDS = api/ncurses graphics/plot
+FILES = jitters.ijs plot.ijs data/*.txt
 
 run :
 	$(J) jitters.ijs -js \
@@ -26,6 +26,9 @@ manifest.ijs : $(FILES)
 	echo "DESCRIPTION =: $(DESCRIPTION)" >> $@
 	echo "FOLDER =: $(FOLDER)" >> $@
 	echo "FILES =: 0 : 0" >> $@
+	echo "DEPENDS =: 0 : 0" >> $@
+	(for x in $(DEPENDS); do echo $$x >> $@; done)
+	echo ")" >> $@
 	(for x in $?; do echo $$x >> $@; done)
 	echo ")" >> $@
 
